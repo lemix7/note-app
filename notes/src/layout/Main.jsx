@@ -48,9 +48,9 @@ const Main = () => {
           )
       )}
 
-  {state.notes.length === 0 && state.selectedNoteId === null && <EmptyMsg />}
-      
+      {state.selectedNoteId === null && <EmptyMsg />}
 
+      {console.log(state.notes)}
     </div>
   );
 };

@@ -6,8 +6,8 @@ const Logo = () => {
 
       <h1 className="text-2xl font-semibold text-white">Notes</h1>
 
-      <button className="w-[35px] h-[35px] text-white flex justify-center items-center cursor-pointer hover:bg-gray-400/30 active:bg-gray-500/30  p-2 rounded-full transition">
-        <RxHamburgerMenu size={50} />
+      <button className="w-[35px] h-[35px] text-white  flex justify-center items-center cursor-pointer hover:bg-gray-400/30 active:bg-gray-500/30  p-2 rounded-full transition">
+        <RxHamburgerMenu size={50}  />
       </button>
 
 
