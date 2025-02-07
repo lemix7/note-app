@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { noteVariants } from "../animation/note";
 import { motion } from "framer-motion";
 
@@ -12,6 +13,11 @@ const NoteText = ({ onchange, value }) => {
       ></textarea>
     </motion.div>
   );
+};
+
+NoteText.propTypes = {
+  onchange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired
 };
 
 export default NoteText;
