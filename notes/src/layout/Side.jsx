@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Note from "../components/Note";
 import { stateContext } from "../store/notesReducer";
 import AddNoteBtn from "../components/AddNoteBtn";
@@ -8,9 +8,13 @@ import { motion } from "framer-motion";
 import { noteVariants } from "../animation/note";
 
 
-
 const Side = () => {
   const { state, dispatch } = useContext(stateContext);
+
+
+  useEffect(() => {
+   
+  }, []);
 
   return (
     <div className=" w-[30%] bg-black lg:w-[20%] h-screen border-r border-gray-400 flex flex-col items-center gap-4">
