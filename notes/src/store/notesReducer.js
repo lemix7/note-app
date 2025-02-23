@@ -9,6 +9,7 @@ export const stateContext = createContext();
 
 export const notesReducer = (state, action) => {
   switch (action.type) {
+
     case "ADD_NOTE": {
       const newNote = { id: Date.now(), title: "", content: "" };
       return {
@@ -31,8 +32,19 @@ export const notesReducer = (state, action) => {
           note.id === action.payload.id
             ? { ...note, title: action.payload.title }
             : note
-        ),
+      )
       };
+
+      case "FINALIZE_NOTE_TITLE_UPDATE":
+  return {
+    ...state,
+    notes: state.notes.map((note) =>
+      note.id === action.payload.id
+        ? { ...note, title: action.payload.title }
+        : note
+    ),
+  };
+  
     case "UPDATE_NOTE_TEXT":
       return {
         ...state,
