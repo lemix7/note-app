@@ -4,13 +4,32 @@ import Title from "../components/Title";
 import { saveNotesToFirebase } from "../Operations/firebaseOp";
 import NoteText from "../components/NoteText";
 import EmptyMsg from "../components/EmptyMsg";
+import { debounce } from "lodash";
 
 const Main = () => {
   const { state, dispatch } = useContext(stateContext);
   const context = useContext(stateContext);
 
-  const saveNote = async (i) => {
-    await saveNotesToFirebase(i, context);
+  const debouncedSaveNote = debounce((id, context) => {
+    saveNotesToFirebase(id, context);
+  }, 500); // If a user types continuously the function won't trigger until they stop typing for 500ms because of debounce
+
+  const handleTitleChange = (e, id) => {
+    dispatch({
+      type: "UPDATE_NOTE_TITLE",
+      payload: { id, title: e.target.value },
+    });
+
+    debouncedSaveNote(id, context); // Save to Firebase after 500ms
+  };
+
+  const handleContentChange = (e, id) => {
+    dispatch({
+      type: "UPDATE_NOTE_TEXT",
+      payload: { id, content: e.target.value },
+    });
+
+    debouncedSaveNote(id, context);
   };
 
   return (
@@ -20,12 +39,7 @@ const Main = () => {
           note.id === state.selectedNoteId && (
             <Title
               key={note.id}
-              onchange={(e) =>
-                dispatch({
-                  type: "UPDATE_NOTE_TITLE",
-                  payload: { id: note.id, title: e.target.value },
-                })
-              }
+              onchange={(e) => handleTitleChange(e, note.id)}
               value={note.title}
             />
           )
@@ -36,17 +50,9 @@ const Main = () => {
           note.id === state.selectedNoteId && (
             <NoteText
               key={note.id}
-              onchange={(e) =>
-                dispatch({
-                  type: "UPDATE_NOTE_TEXT",
-                  payload: {
-                    id: state.selectedNoteId,
-                    content: e.target.value,
-                  },
-                })
-              }
+              onchange={(e) => handleContentChange(e, note.id)}
               value={note.content}
-              onclick={() => saveNote(note.id)}
+              onclick={() => console.log("hello")}
             />
           )
       )}

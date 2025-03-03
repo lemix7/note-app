@@ -1,17 +1,13 @@
-import Side from "./layout/Side"
-import Main from "./layout/Main"
-import Auth from "../src/components/Auth"
-
+import Side from "./layout/Side";
+import Main from "./layout/Main";
 
 const App = () => {
   return (
     <div className="flex">
-     <Side />
-    <Main /> 
-
-    
+      <Side />
+      <Main />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

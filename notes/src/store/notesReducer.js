@@ -5,18 +5,32 @@ export const INITIAL_STATE = {
   selectedNoteId: null,
 };
 
-export const stateContext = createContext();
+export const stateContext = createContext(); // this will contain the state and dispatch
+export const dispatchContext =  createContext(); // this will contain the dispatch only 
 
 export const notesReducer = (state, action) => {
   switch (action.type) {
 
     case "ADD_NOTE": {
-      const newNote = { id: Date.now(), title: "", content: "" };
+
       return {
         ...state,
-        notes: [...state.notes, newNote],
-        selectedNoteId: newNote.id,
+        notes: [...state.notes, action.payload],
+        selectedNoteId: 2
+
       };
+    }
+
+    case 'UPDATE_NOTE_ID':{
+      const {oldId , newId} = action.payload
+      return {
+        ...state,
+        notes: state.notes.map((note) => 
+        note.id === oldId ? {...note , id: newId} : note
+        ),
+        selectedNoteId: newId
+
+      }
     }
 
     case "SELECT_NOTE":
