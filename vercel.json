@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd notes && npm run build",
+  "buildCommand": "cd notes && npm install && npm run build",
   "outputDirectory": "notes/dist",
   "framework": "vite",
   "routes": [
