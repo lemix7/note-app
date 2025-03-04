@@ -1,0 +1,8 @@
+{
+  "buildCommand": "cd notes && npm run build",
+  "outputDirectory": "notes/dist",
+  "framework": "vite",
+  "routes": [
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+} 
