@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo , memo } from "react";
 import { dispatchContext } from "../store/notesReducer";
 import { FiPlusCircle } from "react-icons/fi";
 import { createNoteInFirebase } from "../Operations/firebaseOp";
@@ -6,25 +6,20 @@ import { createNoteInFirebase } from "../Operations/firebaseOp";
 const AddNoteBtn = () => {
   const dispatch = useContext(dispatchContext);
 
-  const handleCreateNote = async () => {
+  const handleCreateNote = useMemo(() => async () => {
     const tempNote = { id: Date.now(), title: "", content: "" }; // temp note just for firebase to generate and Id
-
-    dispatch({
-      type: "ADD_NOTE",
-      payload: { id: tempNote.id, title: "", content: "" },
-    });
 
     try {
       const noteID = await createNoteInFirebase(tempNote);
 
       dispatch({
-        type: "UPDATE_NOTE_ID",
-        payload: { oldId: tempNote.id, newId: noteID },
+        type: "ADD_NOTE",
+        payload: { id: noteID, title: "", content: "" },
       });
     } catch (error) {
       console.error("failed to create a new note", error);
     }
-  };
+  }, [dispatch]);
 
   return (
     <div className="w-full px-4">
@@ -39,4 +34,4 @@ const AddNoteBtn = () => {
   );
 };
 
-export default AddNoteBtn;
+export default memo(AddNoteBtn);

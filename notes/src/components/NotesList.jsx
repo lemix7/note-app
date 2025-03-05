@@ -33,5 +33,4 @@ const NotesList = () => {
   </div>
   )
 }
-
 export default NotesList
