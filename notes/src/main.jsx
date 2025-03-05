@@ -7,7 +7,7 @@ import StateProvider from "./context/StateProvider";
 import DispatchProvider from "./context/DispatchProvider";
 
 scan({
-  enabled: true,
+  enabled: false,
 });
 
 createRoot(document.getElementById("root")).render(
