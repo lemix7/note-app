@@ -4,6 +4,9 @@ import { useContext } from "react";
 import Note from "../components/Note";
 import { stateContext } from "../store/notesReducer";
 import DeleteBtn from "../components/DeleteBtn";
+import React from "react";
+
+const MemoNote = React.memo(Note)
 
 const NotesList = () => {
     const { state, dispatch } = useContext(stateContext);
@@ -18,7 +21,7 @@ const NotesList = () => {
         animate="visible"
         initial="hidden"
       >
-        <Note
+        <MemoNote
           title={note.title || "Untitled"}
           key={note.id}
           onclick={() =>

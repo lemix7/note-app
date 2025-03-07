@@ -21,7 +21,7 @@ export const notesReducer = (state, action) => {
       };
     }
 
-    case 'UPDATE_NOTE_ID':{
+    case 'UPDATE_NOT_ID':{
       const {oldId , newId} = action.payload
       return {
         ...state,
@@ -48,6 +48,16 @@ export const notesReducer = (state, action) => {
             : note
       )
       };
+
+      case "UPDATE_NOTE_ID":
+  return {
+    ...state,
+    notes: state.notes.map(note =>
+      note.id === action.payload.oldID
+        ? { ...note, id: action.payload.newID }
+        : note
+    ),
+  };
 
       case "FINALIZE_NOTE_TITLE_UPDATE":
   return {

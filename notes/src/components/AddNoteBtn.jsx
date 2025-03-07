@@ -9,13 +9,20 @@ const AddNoteBtn = () => {
   const handleCreateNote = useMemo(() => async () => {
     const tempNote = { id: Date.now(), title: "", content: "" }; // temp note just for firebase to generate and Id
 
+    dispatch({
+      type: "ADD_NOTE",
+      payload: { id:Date.now() , title: "", content: "" },
+    });
     try {
       const noteID = await createNoteInFirebase(tempNote);
 
-      dispatch({
-        type: "ADD_NOTE",
-        payload: { id: noteID, title: "", content: "" },
-      });
+      if(noteID !== tempNote.id){
+        dispatch({
+          type: "UPDATE_NOTE_ID",
+          payload: { oldID: tempNote.id, newID: noteID },
+        });
+      }
+
     } catch (error) {
       console.error("failed to create a new note", error);
     }

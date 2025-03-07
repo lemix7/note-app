@@ -1,4 +1,4 @@
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc , deleteDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 
 
@@ -44,3 +44,19 @@ export const createNoteInFirebase = async (note) => {
   }
   
 }
+
+export const deleteNoteFromFirebase = async (noteID) => {
+
+  try {
+    const noteRef = doc(db , "notes" , noteID)
+
+    await deleteDoc(noteRef)
+    return "Note deleted successfully!";
+
+  } catch (error) {
+    console.error("Error deleting note from firebase" , error)
+    throw new Error("failed to delete note.")
+    
+  }
+}
+

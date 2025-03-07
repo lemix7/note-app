@@ -1,20 +1,26 @@
 import { dispatchContext } from "../store/notesReducer";
 import { useContext, useMemo, memo } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
-import PropTypes from 'prop-types';
+import { deleteNoteFromFirebase } from "../Operations/firebaseOp";
+import PropTypes from "prop-types";
 
-const DeleteBtn = ({noteid}) => {
+const DeleteBtn = ({ noteid }) => {
   const dispatch = useContext(dispatchContext);
-  
-  const handleDeleteNote = useMemo(() => {
-    return () => dispatch({ type: "DELETE_NOTE", payload: noteid });
-  }, [dispatch, noteid]);
-  
+
+  const handleDeleteNote = useMemo(() => async (noteid) => {
+    try {
+      await deleteNoteFromFirebase(noteid);
+      dispatch({ type: "DELETE_NOTE", payload: noteid });
+    } catch (error) {
+      console.error(error);
+    }
+  }, [dispatch]);
+
   return (
     <div>
       <button
         className="w-[30px] h-[30px] rounded-full cursor-pointer transition"
-        onClick={handleDeleteNote}
+        onClick={() => handleDeleteNote(noteid)}
       >
         <AiOutlineDelete
           size={20}
@@ -27,7 +33,7 @@ const DeleteBtn = ({noteid}) => {
 };
 
 DeleteBtn.propTypes = {
-  noteid: PropTypes.string.isRequired 
+  noteid: PropTypes.string.isRequired,
 };
 
 export default memo(DeleteBtn);
