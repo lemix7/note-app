@@ -21,6 +21,13 @@ export const notesReducer = (state, action) => {
       };
     }
 
+    case "SET_NOTES": {
+      return {
+        ...state , 
+        notes: action.payload
+      }
+    }
+
     case 'UPDATE_NOT_ID':{
       const {oldId , newId} = action.payload
       return {
