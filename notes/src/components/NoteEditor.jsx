@@ -16,7 +16,7 @@ const NoteEditor = () => {
       debounce((id, context) => {
         saveNotesToFirebase(id, context);
       }, 500)
-    ,[]) ; // If a user types continuously the function won't trigger until they stop typing for 500ms because of debounce
+    ,[]); // If a user types continuously the function won't trigger until they stop typing for 500ms because of debounce
   
   
     const handleTitleChange = useCallback( (e, id) => {
