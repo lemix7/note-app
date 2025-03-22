@@ -1,7 +1,36 @@
-
-
+import { useState } from "react";
+import {
+  doSignInWithEmailAndPassword,
+  doSignInWithGoogle,
+} from "../firebase/auth";
+import { useAuth } from "../context/AuthProvider";
 
 const Login = () => {
+  const { userLoggedIn } = useAuth();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSigningIn, setIsSigningIn] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleLogIn = async (e) => {
+    e.preventDefault();
+    if (!isSigningIn) {
+      setIsSigningIn(true);
+      await doSignInWithEmailAndPassword(email, password);
+    }
+  };
+
+  const handleGoogleSignIn = (e) => {
+    e.preventDefault();
+    if (!isSigningIn) {
+      setIsSigningIn(true);
+      doSignInWithGoogle().catch((err) => {
+        setIsSigningIn(false);
+      });
+    }
+  };
+
   return (
     <div className=" w-full h-full flex justify-center  bg-black items-center">
       <div className="w-[500px] h-full flex flex-col  justify-center text-white p-4">

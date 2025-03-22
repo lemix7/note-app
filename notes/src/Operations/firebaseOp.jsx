@@ -30,7 +30,7 @@ export const createNoteInFirebase = async (note) => {
     return noteRef.id; // return the id assigned to the note in fire base db
   } catch (error) {
     console.error("Error creating note:", error);
-    throw new Error("Failed to reate note.");
+    throw new Error("Failed to create note.");
   }
 };
 
