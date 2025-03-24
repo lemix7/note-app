@@ -1,15 +1,12 @@
-import Side from "./layout/Side";
-import Main from "./layout/Main";
-
-
+import HomePage from "./Pages/HomePage";
+import AuthPage from "./Pages/AuthPage";
 
 const App = () => {
   return (
-    <div className="flex">
-      <Side />
-      <Main />
-
-    </div>
+    <>
+      {/* <HomePage /> */}
+      <AuthPage/>
+    </>
   );
 };
 

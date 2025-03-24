@@ -15,7 +15,7 @@ const Register = () => {
       await doCreateUserWithEmailAndPassword(email, password);
     }
   };
-
+ 
   return (
     <div className="w-full h-full flex justify-center bg-black items-center">
       <div className="w-[500px] h-full flex flex-col justify-center text-white p-4">
