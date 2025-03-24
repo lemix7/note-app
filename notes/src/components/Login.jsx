@@ -6,7 +6,7 @@ import {
 import { useAuth } from "../context/AuthProvider";
 
 const Login = () => {
-  const { userLoggedIn } = useAuth();
+  // const { userLoggedIn } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,6 +52,7 @@ const Login = () => {
               placeholder="you@example.com"
               className="w-full p-3 bg-[#1a1f2e] border-none  outline-none  rounded-md text-white"
               required
+              onChange={(e)=> setEmail(e.target.value)}
             />
           </div>
           {/* Password field with forgot password link */}
@@ -70,6 +71,7 @@ const Login = () => {
               placeholder="Enter your password"
               className="w-full p-3 bg-[#1a1f2e] outline-none  border-none rounded-md text-white"
               required
+              onChange={(e)=> setPassword(e.target.value)}
             />
           </div>
           {/* Remember me checkbox */}
@@ -87,6 +89,7 @@ const Login = () => {
           <button
             type="submit"
             className="w-full p-2 cursor-pointer bg-[#4d7cfe] hover:bg-[#3a69eb] text-white text-xl rounded-md"
+            onClick={handleLogIn}
           >
             Log In
           </button>

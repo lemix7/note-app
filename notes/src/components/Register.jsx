@@ -3,19 +3,20 @@ import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
 import { useAuth } from "../context/AuthProvider";
 
 const Register = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    if (isRegistered) {
+  const handleSignUp = async () => {
+    if (!isRegistered) {
       setIsRegistered(true);
       await doCreateUserWithEmailAndPassword(email, password);
     }
   };
- 
+
   return (
     <div className="w-full h-full flex justify-center bg-black items-center">
       <div className="w-[500px] h-full flex flex-col justify-center text-white p-4">
@@ -38,6 +39,9 @@ const Register = () => {
               placeholder="John Doe"
               className="w-full p-3 bg-[#1a1f2e] border-none outline-none rounded-md text-white"
               required
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
             />
           </div>
 
@@ -52,6 +56,9 @@ const Register = () => {
               placeholder="you@example.com"
               className="w-full p-3 bg-[#1a1f2e] border-none outline-none rounded-md text-white"
               required
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
             />
           </div>
 
@@ -67,6 +74,9 @@ const Register = () => {
               className="w-full p-3 bg-[#1a1f2e] border-none outline-none rounded-md text-white"
               required
               minLength={8}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
             />
           </div>
 
@@ -81,6 +91,9 @@ const Register = () => {
               placeholder="Confirm your password"
               className="w-full p-3 bg-[#1a1f2e] border-none outline-none rounded-md text-white"
               required
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+              }}
             />
             {/* {passwordError && <p className="mt-2 text-red-500">{passwordError}</p>} */}
           </div>
@@ -109,6 +122,7 @@ const Register = () => {
           <button
             type="submit"
             className="w-full p-2 cursor-pointer bg-[#4d7cfe] hover:bg-[#3a69eb] text-white text-xl rounded-md"
+            onClick={handleSignUp()}
           >
             Sign Up
           </button>
