@@ -22,7 +22,7 @@ const Register = () => {
     if (!isRegistered) {
       setIsRegistered(true);
       await doCreateUserWithEmailAndPassword(email, password);
-      navigate("/Login")
+      navigate("/")
     }
   };
 
@@ -31,12 +31,13 @@ const Register = () => {
       <div className="w-[500px] h-full flex flex-col justify-center text-white p-4">
         {/* Form header */}
         <div className="mb-8 flex flex-col gap-2">
-          <h1 className="text-3xl font-bold mb-2">Sign Up</h1>
+          <h1 className="text-4xl font-bold mb-2">Sign Up</h1>
           <p className="text-gray-400 text-xl">Create your notes account</p>
         </div>
 
         {/* Signup form */}
         <form onSubmit={handleSignUp}>
+
           {/* Name field */}
           <div className="mb-6">
             <label htmlFor="name" className="block mb-2 text-xl">
@@ -46,7 +47,7 @@ const Register = () => {
               id="name"
               type="text"
               placeholder="John Doe"
-              className="w-full p-3 bg-[#1a1f2e] border-none outline-none rounded-md text-white"
+              className="w-full p-3 bg-[#1a1f2e] border-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none rounded-md text-white"
               required
               onChange={(e) => {
                 setName(e.target.value);
@@ -63,7 +64,7 @@ const Register = () => {
               id="email"
               type="email"
               placeholder="you@example.com"
-              className="w-full p-3 bg-[#1a1f2e] border-none outline-none rounded-md text-white"
+              className="w-full p-3 bg-[#1a1f2e] border-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none rounded-md text-white"
               required
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -80,7 +81,7 @@ const Register = () => {
               id="password"
               type="password"
               placeholder="Create a password"
-              className="w-full p-3 bg-[#1a1f2e] border-none outline-none rounded-md text-white"
+              className="w-full p-3 bg-[#1a1f2e] border-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none rounded-md text-white"
               required
               minLength={8}
               onChange={(e) => {
@@ -98,7 +99,7 @@ const Register = () => {
               id="confirmPassword"
               type="password"
               placeholder="Confirm your password"
-              className="w-full p-3 bg-[#1a1f2e] border-none outline-none rounded-md text-white"
+              className="w-full p-3 bg-[#1a1f2e] border-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none rounded-md text-white"
               required
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
@@ -139,7 +140,7 @@ const Register = () => {
         {/* Login link */}
         <div className="mt-8 text-center">
           <span className="text-gray-400">Already have an account? </span>
-          <Link to={`/Login`} className="text-[#4d7cfe] hover:underline">Log In </Link>
+          <Link to={`/`} className="text-[#4d7cfe] hover:underline">Log In </Link>
         </div>
       </div>
     </div>
@@ -147,3 +148,4 @@ const Register = () => {
 };
 
 export default Register;
+

@@ -15,8 +15,8 @@ scan({
 });
 
 const router = createBrowserRouter([
-  {path: "/" , element:<App /> },
-  {path: "/Login" , element:<LoginPage /> },
+  {path: "/Homepage" , element:<App /> },
+  {path: "/" , element:<LoginPage /> },
   {path: "/SignUp" , element:<SignUpPage /> },
   {path: "*" , element:<NotFound /> }
 

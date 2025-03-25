@@ -6,6 +6,7 @@ import {
 import { useAuth } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import {GoogleLogo} from "../assets/google";
 
 const Login = () => {
   // const { userLoggedIn } = useAuth();
@@ -16,16 +17,24 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMsg, setErrorMsg] = useState({
-    email:"",
-    password:""
+    email: "",
+    password: "",
   });
 
   const handleLogIn = async (e) => {
     e.preventDefault();
+
+    if (!email.includes("@")) {
+      errorMsg.email = "please enter a valid email address";
+    }
+    if (password.length > 8) {
+      errorMsg.password = "wrong password";
+    }
+
     if (!isSigningIn) {
       setIsSigningIn(true);
       await doSignInWithEmailAndPassword(email, password);
-      navigate("/")
+      navigate("/");
     }
   };
 
@@ -35,6 +44,7 @@ const Login = () => {
       setIsSigningIn(true);
       doSignInWithGoogle().catch((err) => {
         setIsSigningIn(false);
+        console.log(err);
       });
     }
   };
@@ -44,7 +54,7 @@ const Login = () => {
       <div className="w-[500px] h-full flex flex-col  justify-center text-white p-4">
         {/* Form header */}
         <div className="mb-8 flex flex-col gap-2">
-          <h1 className="text-3xl font-bold mb-2">Log In</h1>
+          <h1 className="text-4xl font-bold mb-2">Log In</h1>
           <p className="text-gray-400 text-xl">Welcome back to your notes</p>
         </div>
         {/* Login form */}
@@ -58,7 +68,7 @@ const Login = () => {
               id="email"
               type="email"
               placeholder="you@example.com"
-              className="w-full p-3 bg-[#1a1f2e] border-none  outline-none  rounded-md text-white"
+              className="w-full p-3 bg-[#1a1f2e] border-none  outline-none  rounded-md focus:border-blue-500 focus:ring-2 focus:ring-blue-500 text-white"
               required
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -77,7 +87,7 @@ const Login = () => {
               id="password"
               type="password"
               placeholder="Enter your password"
-              className="w-full p-3 bg-[#1a1f2e] outline-none  border-none rounded-md text-white"
+              className="w-full p-3 bg-[#1a1f2e] outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500  border-none rounded-md text-white"
               required
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -102,10 +112,27 @@ const Login = () => {
             Log In
           </button>
         </form>
-       
+
+        <div className="relative flex items-center my-4">
+          <div className="flex-grow border-t border-gray-700"></div>
+          <span className="mx-4 flex-shrink text-gray-400">or</span>
+          <div className="flex-grow border-t border-gray-700"></div>
+        </div>
+
+        <button
+          type="submit"
+          className="w-full p-2 cursor-pointer flex items-center justify-center gap-4 bg-gray-800 hover:bg-gray-900 text-white text-xl rounded-md hover:text-black hover:bg-white font-semibold transition"
+          onClick={handleGoogleSignIn}
+        >
+          <GoogleLogo className="h-6 w-6" />
+          Sign in with Google
+        </button>
+
         <div className="mt-4 text-center">
           <span className="text-gray-400">Don't have an account ? </span>
-          <Link to={`/SignUp`} className="text-[#4d7cfe] hover:underline">Sign Up </Link>
+          <Link to={`/SignUp`} className="text-[#4d7cfe] hover:underline">
+            Sign Up{" "}
+          </Link>
         </div>
       </div>
     </div>
