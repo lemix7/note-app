@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
 import { useAuth } from "../context/AuthProvider";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -8,12 +10,19 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState({
+    email:"",
+    password:""
+  });
 
-  const handleSignUp = async () => {
+  const navigate = useNavigate();
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
     if (!isRegistered) {
       setIsRegistered(true);
       await doCreateUserWithEmailAndPassword(email, password);
+      navigate("/Login")
     }
   };
 
@@ -130,9 +139,7 @@ const Register = () => {
         {/* Login link */}
         <div className="mt-8 text-center">
           <span className="text-gray-400">Already have an account? </span>
-          <a href="/login" className="text-[#4d7cfe] hover:underline">
-            Log In
-          </a>
+          <Link to={`/Login`} className="text-[#4d7cfe] hover:underline">Log In </Link>
         </div>
       </div>
     </div>

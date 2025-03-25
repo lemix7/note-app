@@ -4,20 +4,28 @@ import {
   doSignInWithGoogle,
 } from "../firebase/auth";
 import { useAuth } from "../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   // const { userLoggedIn } = useAuth();
 
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState({
+    email:"",
+    password:""
+  });
 
   const handleLogIn = async (e) => {
     e.preventDefault();
     if (!isSigningIn) {
       setIsSigningIn(true);
       await doSignInWithEmailAndPassword(email, password);
+      navigate("/")
     }
   };
 
@@ -52,7 +60,7 @@ const Login = () => {
               placeholder="you@example.com"
               className="w-full p-3 bg-[#1a1f2e] border-none  outline-none  rounded-md text-white"
               required
-              onChange={(e)=> setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           {/* Password field with forgot password link */}
@@ -71,7 +79,7 @@ const Login = () => {
               placeholder="Enter your password"
               className="w-full p-3 bg-[#1a1f2e] outline-none  border-none rounded-md text-white"
               required
-              onChange={(e)=> setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           {/* Remember me checkbox */}
@@ -94,12 +102,10 @@ const Login = () => {
             Log In
           </button>
         </form>
-        {/* Support link */}
-        <div className="mt-8 text-center">
-          <span className="text-gray-400">Need help? </span>
-          <a href="#" className="text-[#4d7cfe] hover:underline">
-            Contact support
-          </a>
+       
+        <div className="mt-4 text-center">
+          <span className="text-gray-400">Don't have an account ? </span>
+          <Link to={`/SignUp`} className="text-[#4d7cfe] hover:underline">Sign Up </Link>
         </div>
       </div>
     </div>
