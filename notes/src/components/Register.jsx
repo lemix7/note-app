@@ -27,7 +27,7 @@ const Register = () => {
         </div>
 
         {/* Signup form */}
-        <form>
+        <form onSubmit={handleSignUp}>
           {/* Name field */}
           <div className="mb-6">
             <label htmlFor="name" className="block mb-2 text-xl">
@@ -122,7 +122,6 @@ const Register = () => {
           <button
             type="submit"
             className="w-full p-2 cursor-pointer bg-[#4d7cfe] hover:bg-[#3a69eb] text-white text-xl rounded-md"
-            onClick={handleSignUp()}
           >
             Sign Up
           </button>

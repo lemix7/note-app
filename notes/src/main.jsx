@@ -5,16 +5,28 @@ import "./index.css";
 import App from "./App.jsx";
 import StateProvider from "./context/StateProvider";
 import DispatchProvider from "./context/DispatchProvider";
+import { createBrowserRouter , RouterProvider } from "react-router-dom";
+import NotFound from "./Pages/NotFound";
+import LoginPage from "./Pages/LoginPage";
+import SignUpPage from "./Pages/SignUpPage";
 
 scan({
   enabled: true,
 });
 
+const router = createBrowserRouter([
+  {path: "/" , element:<App /> },
+  {path: "/Login" , element:<LoginPage /> },
+  {path: "/SignUp" , element:<SignUpPage /> },
+  {path: "*" , element:<NotFound /> }
+
+]);
+
 createRoot(document.getElementById("root")).render(
   <StateProvider>
     <DispatchProvider>
       <StrictMode>
-        <App />
+        <RouterProvider router = {router}/>
       </StrictMode>
     </DispatchProvider>
   </StateProvider>
