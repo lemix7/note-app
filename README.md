@@ -66,6 +66,14 @@ npm run dev
 ```
 The app will be available at `http://localhost:5173`.  
 
+## 🛠 Built With  
+- [React](https://reactjs.org/) – Frontend library  
+- [Vite](https://vitejs.dev/) – Fast development tool  
+- [Firebase](https://firebase.google.com/) – Backend & authentication  
+- [Tailwind CSS](https://tailwindcss.com/) – Modern styling framework  
+- [React Router](https://reactrouter.com/) – Client-side routing  
+- [React Icons](https://react-icons.github.io/react-icons/) – Icon library for UI components  
+
 ## 🤝 Contributing  
 
 Contributions are welcome! If you'd like to improve the app, please:  
