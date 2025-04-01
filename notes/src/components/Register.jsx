@@ -33,7 +33,7 @@ const Register = () => {
         {/* Signup form */}
         <form onSubmit={handleSubmit(onSignUp)} noValidate>
           {/* Name field */}
-          <div className="mb-6">
+          <div className="mb-4">
             <label htmlFor="name" className="block mb-2 text-xl">
               Full Name
             </label>
@@ -54,7 +54,7 @@ const Register = () => {
           </div>
 
           {/* Email field */}
-          <div className="mb-6">
+          <div className="mb-4">
             <label htmlFor="email" className="block mb-2 text-xl">
               Email
             </label>
@@ -65,6 +65,10 @@ const Register = () => {
               className="w-full p-3 bg-[#1a1f2e] border-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none rounded-md text-white"
               required
               {...register("email", {
+                required:{
+                  value : true,
+                  message: "email is required"
+                },
                 pattern: {
                   value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                   message: "Please enter a valid email",
@@ -75,7 +79,7 @@ const Register = () => {
           </div>
 
           {/* Password field */}
-          <div className="mb-6">
+          <div className="mb-4">
             <label htmlFor="password" className="block mb-2 text-xl">
               Password
             </label>
@@ -102,7 +106,7 @@ const Register = () => {
           </div>
 
           {/* Confirm Password field */}
-          <div className="mb-6">
+          <div className="mb-4">
             <label htmlFor="confirmPassword" className="block mb-2 text-xl">
               Confirm Password
             </label>
@@ -157,7 +161,7 @@ const Register = () => {
           {/* Sign Up button */}
           <button
             type="submit"
-            className="w-full p-2 cursor-pointer bg-[#4d7cfe] hover:bg-[#3a69eb] text-white text-xl rounded-md"
+            className="w-full p-2 cursor-pointer bg-[#4d7cfe] hover:bg-[#3a49eb] text-white text-xl rounded-md"
           >
             Sign Up
           </button>
