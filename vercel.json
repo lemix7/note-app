@@ -1,6 +1,6 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
+  "buildCommand": "cd notes && npm install && npm run build",
+  "outputDirectory": "notes/dist",
   "framework": "vite",
   "rewrites": [
     {
