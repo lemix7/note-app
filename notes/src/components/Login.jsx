@@ -6,35 +6,24 @@ import {
 import { useAuth } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import {GoogleLogo} from "../assets/google";
+import { GoogleLogo } from "../assets/google";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
   // const { userLoggedIn } = useAuth();
 
+  const form = useForm();
+  const { register, handleSubmit, formState, getValues } = form;
+  const { errors } = formState;
+
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isSigningIn, setIsSigningIn] = useState(false);
-  const [errorMsg, setErrorMsg] = useState({
-    email: "",
-    password: "",
-  });
-
-  const handleLogIn = async (e) => {
-    e.preventDefault();
-
-    if (!email.includes("@")) {
-      errorMsg.email = "please enter a valid email address";
-    }
-    if (password.length > 8) {
-      errorMsg.password = "wrong password";
-    }
-
-    if (!isSigningIn) {
-      setIsSigningIn(true);
-      await doSignInWithEmailAndPassword(email, password);
+  const handleLogIn = async (data) => {
+    try {
+      await doSignInWithEmailAndPassword(data.email, data.password);
       navigate("/");
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -49,6 +38,8 @@ const Login = () => {
     }
   };
 
+  //backdrop-blur-xl bg-white/5 border border-white/10 shadow-xl rounded-xl;
+
   return (
     <div className=" w-full h-full flex justify-center  bg-black items-center">
       <div className="w-[500px] h-full flex flex-col  justify-center text-white p-4">
@@ -57,8 +48,9 @@ const Login = () => {
           <h1 className="text-4xl font-bold mb-2">Log In</h1>
           <p className="text-gray-400 text-xl">Welcome back to your notes</p>
         </div>
+
         {/* Login form */}
-        <form>
+        <form onSubmit={handleSubmit(handleLogIn)}>
           {/* Email field */}
           <div className="mb-6">
             <label htmlFor="email" className="block mb-2 text-xl">
@@ -73,6 +65,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
+
           {/* Password field with forgot password link */}
           <div className="mb-6">
             <div className="flex justify-between items-center mb-2">
@@ -92,6 +85,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+
           {/* Remember me checkbox */}
           <div className="mb-8 flex items-center gap-2">
             <input
@@ -103,6 +97,7 @@ const Login = () => {
               Remember me for 30 days
             </label>
           </div>
+
           {/* Login button */}
           <button
             type="submit"

@@ -1,29 +1,24 @@
-import { useState } from "react";
 import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
-import { useAuth } from "../context/AuthProvider";
+// import { useAuth } from "../context/AuthProvider";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [errorMsg, setErrorMsg] = useState({
-    email:"",
-    password:""
-  });
+  const form = useForm();
+  const { register, handleSubmit, formState, getValues } = form;
+  const { errors } = formState;
 
   const navigate = useNavigate();
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    if (!isRegistered) {
-      setIsRegistered(true);
-      await doCreateUserWithEmailAndPassword(email, password);
-      navigate("/")
+  const onSignUp = async (data) => {
+    try {
+      await doCreateUserWithEmailAndPassword(data.email, data.password);
+      navigate("/");
+    } catch (err) {
+      console.error(err);
     }
+    console.log(data);
   };
 
   return (
@@ -36,8 +31,7 @@ const Register = () => {
         </div>
 
         {/* Signup form */}
-        <form onSubmit={handleSignUp}>
-
+        <form onSubmit={handleSubmit(onSignUp)} noValidate>
           {/* Name field */}
           <div className="mb-6">
             <label htmlFor="name" className="block mb-2 text-xl">
@@ -49,10 +43,14 @@ const Register = () => {
               placeholder="John Doe"
               className="w-full p-3 bg-[#1a1f2e] border-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none rounded-md text-white"
               required
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
+              {...register("name", {
+                required: {
+                  value: true,
+                  message: "name is required",
+                },
+              })}
             />
+            <p className="text-sm text-red-500 mt-2">{errors.name?.message}</p>
           </div>
 
           {/* Email field */}
@@ -66,10 +64,14 @@ const Register = () => {
               placeholder="you@example.com"
               className="w-full p-3 bg-[#1a1f2e] border-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none rounded-md text-white"
               required
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
+              {...register("email", {
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: "Please enter a valid email",
+                },
+              })}
             />
+            <p className="text-sm text-red-500 mt-2">{errors.email?.message}</p>
           </div>
 
           {/* Password field */}
@@ -83,11 +85,20 @@ const Register = () => {
               placeholder="Create a password"
               className="w-full p-3 bg-[#1a1f2e] border-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none rounded-md text-white"
               required
-              minLength={8}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              {...register("password", {
+                required: {
+                  value: true,
+                  message: "Invalid password",
+                },
+                minLength: {
+                  value: 8,
+                  message: "Password must be at least 8 characters",
+                },
+              })}
             />
+            <p className="text-sm text-red-500 mt-2">
+              {errors.password?.message}
+            </p>
           </div>
 
           {/* Confirm Password field */}
@@ -101,11 +112,19 @@ const Register = () => {
               placeholder="Confirm your password"
               className="w-full p-3 bg-[#1a1f2e] border-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none rounded-md text-white"
               required
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-              }}
+              {...register("confirmPassword", {
+                required: {
+                  value: true,
+                  message: "Confirm password is required",
+                },
+                // validate: (value) => value === formState.getValues("password") || "Passwords do not match"
+                validate: (value) =>
+                  value === getValues("password") || "Passwords do not match",
+              })}
             />
-            {/* {passwordError && <p className="mt-2 text-red-500">{passwordError}</p>} */}
+            <p className="text-sm text-red-500 mt-2">
+              {errors.confirmPassword?.message}
+            </p>
           </div>
 
           {/* Terms and conditions checkbox */}
@@ -115,6 +134,12 @@ const Register = () => {
               type="checkbox"
               className="border-[#4d7cfe] h-4 w-4"
               required
+              {...register("terms", {
+                required: {
+                  value: true,
+                  message: "You must agree to the terms and conditions",
+                },
+              })}
             />
             <label htmlFor="terms" className="">
               I agree to the{" "}
@@ -126,6 +151,7 @@ const Register = () => {
                 Privacy Policy
               </a>
             </label>
+            <p className="text-sm text-red-500 mt-2">{errors.terms?.message}</p>
           </div>
 
           {/* Sign Up button */}
@@ -137,10 +163,13 @@ const Register = () => {
           </button>
         </form>
 
+        {/* <DevTool control={control}/> */}
         {/* Login link */}
         <div className="mt-8 text-center">
           <span className="text-gray-400">Already have an account? </span>
-          <Link to={`/`} className="text-[#4d7cfe] hover:underline">Log In </Link>
+          <Link to={`/`} className="text-[#4d7cfe] hover:underline">
+            Log In
+          </Link>
         </div>
       </div>
     </div>
@@ -148,4 +177,3 @@ const Register = () => {
 };
 
 export default Register;
-
