@@ -6,6 +6,7 @@ import { stateContext } from "../store/notesReducer";
 import DeleteBtn from "../components/DeleteBtn";
 import React from "react";
 import { fetchNotesFromFirebase } from "../Operations/firebaseOp";
+import { auth } from "../config/firebase";
 
 const MemoNote = React.memo(Note);
 
@@ -13,21 +14,30 @@ const NotesList = () => {
   const { state, dispatch } = useContext(stateContext);
 
   useEffect(() => {
-    const loadNotes = async () => {
-      try {
-        const fetchedNotes = await fetchNotesFromFirebase();
-        dispatch({ type: "SET_NOTES", payload: fetchedNotes });
-      } catch (error) {
-        console.error("Failed to fetch notes:", error);
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        try {
+          const fetchedNotes = await fetchNotesFromFirebase();
+          dispatch({ type: "SET_NOTES", payload: fetchedNotes });
+        } catch (error) {
+          console.error("Failed to fetch notes:", error);
+        }
+      } else {
+        // Clear notes when user is not authenticated
+        dispatch({ type: "SET_NOTES", payload: [] });
       }
-    };
+    });
 
-    loadNotes();
-  }, []);
-
-  const handleClick = React.useCallback((id) => {
-    dispatch({ type: "SELECT_NOTE", payload: id });
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
   }, [dispatch]);
+
+  const handleClick = React.useCallback(
+    (id) => {
+      dispatch({ type: "SELECT_NOTE", payload: id });
+    },
+    [dispatch]
+  );
 
   return (
     <div className="w-full flex flex-col items-center  gap-5 p-4">

@@ -1,6 +1,7 @@
 import NotesList from "../components/NotesList";
 import AddNoteBtn from "../components/AddNoteBtn";
 import Logo from "../components/Logo";
+import LogoutBtn from "../components/LogoutBtn";
 
 const Side = () => {
   return (
@@ -8,6 +9,9 @@ const Side = () => {
       <Logo />
       <AddNoteBtn />
       <NotesList />
+      <div className="mt-auto mb-4">
+        <LogoutBtn />
+      </div>
     </div>
   );
 };

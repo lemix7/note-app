@@ -37,8 +37,6 @@ const Login = () => {
         case "auth/wrong-password":
           setLoginMsg("Wrong password");
           break;
-        default:
-          setLoginMsg("Login error:", err.message);
       }
     }
   };
