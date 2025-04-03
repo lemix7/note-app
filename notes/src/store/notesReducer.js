@@ -3,6 +3,7 @@ import { createContext } from "react";
 export const INITIAL_STATE = {
   notes: [],
   selectedNoteId: null,
+  isSideBarOpen: false,
 };
 
 export const stateContext = createContext(); // this will contain the state and dispatch
@@ -19,6 +20,13 @@ export const notesReducer = (state, action) => {
         selectedNoteId: 2
 
       };
+    }
+
+    case "TOOGLE_SIDEBAR":{
+      return{
+        ...state,
+        isSideBarOpen:!state.isSideBarOpen
+      }
     }
 
     case "SET_NOTES": {

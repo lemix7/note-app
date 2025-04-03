@@ -3,7 +3,7 @@ import Main from "../layout/Main";
 
 const HomePage = () => {
   return (
-    <div className="flex">
+    <div className="flex relative">
       <Side />
       <Main />
     </div>

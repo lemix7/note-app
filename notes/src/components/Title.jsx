@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const Title = ({ onchange, value }) => {
   return (
     <motion.div
-      className="md:w-[60%]"
+      className=""
       variants={noteVariants}
       animate="visible"
       initial="hidden"
@@ -14,7 +14,7 @@ const Title = ({ onchange, value }) => {
         type="text"
         value={value}
         placeholder="Untitled Note"
-        className="w-full  text-4xl mt-9 font-semibold text-white placeholder:text-white  outline-none"
+        className="w-full  text-4xl  font-semibold text-white placeholder:text-white  outline-none"
         onChange={onchange}
       />
     </motion.div>
