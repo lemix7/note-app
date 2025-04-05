@@ -44,7 +44,7 @@ const NoteEditor = () => {
     dispatch({ type: "TOOGLE_SIDEBAR" });
     console.log(state.isSideBarOpen)
     }
-
+ 
   return (
     <>
       {state.notes.map(

@@ -13,12 +13,17 @@ const Side = () => {
 
   return (
     <div
-      className={`bg-black lg:w-[30%]  ${isSideBarOpen ? "" : ""} h-screen border-r  border-gray-400 flex flex-col items-center gap-4 transition-all duration-300  ease-in-out overflow-hidden sm:relative sm:z-50`}
+      className={`bg-black h-screen border-r lg:w-[30%]  border-gray-400 flex flex-col items-center gap-4 transition-all duration-300 ease-in-out overflow-hidden
+    ${
+      isSideBarOpen
+        ? " max-md:fixed max-md:top-0 max-md:left-0 z-50 max-md:w-[50%] sm:w-[50%] md:w-[40%] "
+        : "w-0 overflow-hidden "
+    }`}
     >
-      <Logo  />
+      <Logo />
       <AddNoteBtn />
       <NotesList />
-      <div className="mt-auto mb-4">
+      <div className="mt-auto w-full mb-4 px-5">
         <LogoutBtn />
       </div>
     </div>
