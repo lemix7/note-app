@@ -21,10 +21,10 @@ const AddNoteBtn = () => {
       //     type: "UPDATE_NOTE_ID",
       //     payload: { oldID: tempNote.id, newID: noteID }
       //   });
-      // }
+      // } 
 
     } catch (error) {
-      console.error("failed to create a new note", error);
+      console.error("failed to create a new note", error); 
     }
   }, [dispatch]);
 
